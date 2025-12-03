@@ -1,0 +1,6 @@
+apiVersion: "pipelinesascode.tekton.dev/v1alpha1"
+kind: Repository
+metadata:
+  name: chat-bot-test-gitops-repository
+spec:
+  url: https://github.com/ai-rolling-demo/hello-world-chatbot-gitops

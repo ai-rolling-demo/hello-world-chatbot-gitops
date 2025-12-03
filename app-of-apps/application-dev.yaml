@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: chat-bot-test-app
+  namespace: openshift-gitops
+  finalizers: ["resources-finalizer.argocd.argoproj.io"]
+spec:
+  project: default
+  source:
+    path: ./components/chat-bot-test/overlays/development
+    repoURL: https://github.com/ai-rolling-demo/hello-world-chatbot-gitops.git
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rhdh-app
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: openshift-gitops
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
